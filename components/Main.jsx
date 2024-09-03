@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import bolognese from "@/public/Spaghetti-Bolognese.jpg";
-import carbonara from "@/public/Spaghetti-Carbonara.jpg";
 import puttanesca from "@/public/Spaghetti-Puttanesca.jpg";
 
 export default function Main() {
@@ -15,7 +14,7 @@ export default function Main() {
         Enjoy the best Italian pasta dishes, crafted with love and the finest
         ingredients.
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
         <div className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105">
           <Image
             src={bolognese}
@@ -35,29 +34,6 @@ export default function Main() {
             </Link>
           </div>
         </div>
-
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105">
-          <Image
-            src={carbonara}
-            alt="Order Online"
-            className="w-full h-48 object-cover"
-          />
-          <div className="p-6">
-            <h2 className="text-2xl font-semibold text-slate-800">
-              Order Online
-            </h2>
-            <p className="text-slate-600 mt-2">
-              Get your favorite pasta dishes delivered to your door.
-            </p>
-            <Link
-              href="/order-online"
-              className="mt-4 inline-block bg-slate-700 text-white py-2 px-4 rounded-md hover:bg-slate-800 focus:ring-2 focus:ring-slate-500 focus:outline-none"
-            >
-              Order Now
-            </Link>
-          </div>
-        </div>
-
         <div className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105">
           <Image
             src={puttanesca}
