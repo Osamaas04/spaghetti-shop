@@ -4,28 +4,28 @@ import { useRef } from "react";
 import Link from "next/link";
 
 export default function SignInForm() {
-  const email = useRef(null);
+  const email_username = useRef(null);
   const password = useRef(null);
 
   async function handleSubmit(event) {
     event.preventDefault();
-
-    const emailValue = email.current.value;
+  
+    const email_usernameValue = email_username.current.value;
     const passwordValue = password.current.value;
-
+  
     try {
       const response = await fetch('/api/sign-in', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: emailValue, password: passwordValue }),
+        body: JSON.stringify({ email_username: email_usernameValue, password: passwordValue }),
       });
-
+  
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
       }
-
+  
       alert('Sign in successful!');
     } catch (error) {
       alert(`Failed to sign in: ${error.message}`);
@@ -40,12 +40,12 @@ export default function SignInForm() {
       <form className="grid gap-6" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email" className="block text-slate-600 font-medium">
-            Email
+            Email or Username
           </label>
           <input
-            type="email"
+            type="text"
             id="email"
-            ref={email}
+            ref={email_username}
             className="w-full mt-1 p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-slate-500 focus:outline-none"
             required
           />
