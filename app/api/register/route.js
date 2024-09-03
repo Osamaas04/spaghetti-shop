@@ -4,7 +4,7 @@ import { dbConnect } from "@/lib/mongo";
 import { User } from "@/model/user-model";
 
 export const POST = async (request) => {
-  const { name, email, password } = await request.json();
+  const { name, username, email, password } = await request.json();
 
   await dbConnect();
 
@@ -16,8 +16,17 @@ export const POST = async (request) => {
     });
   }
 
+  const existingUsername = await User.findOne({username})
+
+  if(existingUsername) {
+    return new NextResponse("Username already exists", {
+      status: 401,
+    });
+  }
+
   const newUser = {
     name,
+    username,
     email,
     password,
   };
