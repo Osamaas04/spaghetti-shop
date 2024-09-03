@@ -5,6 +5,7 @@ import { useRef } from "react";
 
 export default function SignUpForm() {
   const name = useRef(null);
+  const username = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
@@ -12,6 +13,7 @@ export default function SignUpForm() {
     event.preventDefault();
 
     const nameValue = name.current.value;
+    const usernameValue = username.current.value;
     const emailValue = email.current.value;
     const passwordValue = password.current.value;
 
@@ -21,7 +23,7 @@ export default function SignUpForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: nameValue, email: emailValue, password: passwordValue }),
+        body: JSON.stringify({ name: nameValue, username: usernameValue, email: emailValue, password: passwordValue }),
       });
 
       if (!response.ok) {
@@ -48,6 +50,18 @@ export default function SignUpForm() {
             type="text"
             id="name"
             ref={name}
+            className="w-full mt-1 p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-slate-500 focus:outline-none"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="name" className="block text-slate-600 font-medium">
+            Username
+          </label>
+          <input
+            type="text"
+            id="name"
+            ref={username}
             className="w-full mt-1 p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-slate-500 focus:outline-none"
             required
           />
