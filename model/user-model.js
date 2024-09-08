@@ -5,6 +5,10 @@ const userSchema = new Schema({
     required: true,
     type: String,
   },
+  username: {
+    required: true,
+    type: String,
+  },
   email: {
     required: true,
     type: String,
@@ -12,6 +16,10 @@ const userSchema = new Schema({
   password: {
     required: true,
     type: String,
+  },
+  balance: {
+    type: Number,
+    default: 10,
   },
 });
 

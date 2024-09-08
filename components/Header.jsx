@@ -2,10 +2,14 @@
 
 import { useContext } from "react";
 import { CartContext } from "@/context/CartContext";
+import { AuthContext } from "@/context/AuthContext";
 import Link from "next/link";
 
 export default function Header() {
   const { cart } = useContext(CartContext);
+  const { isAuthenticated, user } = useContext(AuthContext);
+
+  console.log(user)
 
   return (
     <header className="bg-slate-800 shadow-lg">
@@ -56,6 +60,32 @@ export default function Header() {
                 Cart ({cart.length})
               </Link>
             </li>
+            {isAuthenticated ? (
+              <>
+                <li>
+                  <Link
+                    href="/profile"
+                    className="text-slate-200 hover:text-white transition duration-200"
+                  >
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <span className="text-slate-200">
+                    Balance: ${user?.balance.toFixed(2) || "0.00"}
+                  </span>
+                </li>
+              </>
+            ) : (
+              <li>
+                <Link
+                  href="/login"
+                  className="text-slate-200 hover:text-white transition duration-200"
+                >
+                  Login
+                </Link>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
