@@ -56,19 +56,27 @@ export const POST = async (request) => {
     return response;
   }
 
-  // If credentials are valid, set the "login-success" cookie to true
+  // If credentials are valid, set both cookies (login-success and email)
   const response = new NextResponse(JSON.stringify({
     message: "User authenticated",
     email: existingUser.email,
-    username: existingUser.username,
-    password: existingUser.password // Expose password
+    username: existingUser.username
   }), {
     status: 200,
   });
 
+  // Set login-success cookie
   response.cookies.set("login-success", "true", {
     httpOnly: false, // Vulnerable to JavaScript access
     secure: false,   // Vulnerable to insecure HTTP
+    maxAge: 3600,    // Cookie expires in 1 hour
+    path: "/",
+  });
+
+  // Set email cookie
+  response.cookies.set("user-email", existingUser.email, {
+    httpOnly: false, // Accessible via JavaScript
+    secure: false,   // Vulnerable to insecure HTTP, can set to true in production
     maxAge: 3600,    // Cookie expires in 1 hour
     path: "/",
   });
