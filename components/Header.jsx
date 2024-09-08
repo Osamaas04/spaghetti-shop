@@ -9,8 +9,6 @@ export default function Header() {
   const { cart } = useContext(CartContext);
   const { isAuthenticated, user } = useContext(AuthContext);
 
-  console.log(user)
-
   return (
     <header className="bg-slate-800 shadow-lg">
       <div className="container mx-auto py-6 px-4">
