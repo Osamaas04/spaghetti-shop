@@ -11,8 +11,6 @@ export default function Header() {
 
   console.log(user)
 
-  const { isAuthenticated } = useContext(AuthContext);
-
   return (
     <header className="bg-slate-800 shadow-lg">
       <div className="container mx-auto py-6 px-4">
@@ -78,15 +76,6 @@ export default function Header() {
                   </span>
                 </li>
               </>
-
-              <li>
-                <Link
-                  href="/profile"
-                  className="text-slate-200 hover:text-white transition duration-200"
-                >
-                  Profile
-                </Link>
-              </li>
             ) : (
               <li>
                 <Link
