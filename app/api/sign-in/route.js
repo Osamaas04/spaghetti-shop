@@ -1,16 +1,14 @@
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/mongo";
-<<<<<<< HEAD
+
 import mongoose from "mongoose";
-=======
->>>>>>> 1cc6beb4f824f2e8e3a5cbd9653aebf64115ba64
 
 export const POST = async (request) => {
   const { email_username, password } = await request.json();
 
   await dbConnect();
 
-<<<<<<< HEAD
+
   // Use raw MongoDB query to bypass Mongoose protections
   const usersCollection = mongoose.connection.db.collection("users");
 
@@ -24,7 +22,7 @@ export const POST = async (request) => {
   });
 
   if (!existingUser) {
-=======
+
   // Check if the "login-success" cookie is set to true
   const cookies = request.cookies;
   if (cookies.get("login-success") === "true") {
@@ -42,31 +40,31 @@ export const POST = async (request) => {
   });
 
   if (!existingUser || password !== existingUser.password) {
->>>>>>> 1cc6beb4f824f2e8e3a5cbd9653aebf64115ba64
+
     // If credentials are invalid, set the login-success cookie to false
     const response = new NextResponse("Invalid credentials", {
       status: 401,
     });
 
-<<<<<<< HEAD
+
     response.cookies.set("login-success", "false", {
       httpOnly: false,
       secure: false,
       maxAge: 3600,
-=======
+
     // Set a vulnerable cookie
     response.cookies.set("login-success", "false", {
       httpOnly: false, // Vulnerability: Allow JavaScript access to this cookie
       secure: false,   // Vulnerability: Allow cookie over insecure HTTP
       maxAge: 3600,    // 1 hour
->>>>>>> 1cc6beb4f824f2e8e3a5cbd9653aebf64115ba64
+
       path: "/",
     });
 
     return response;
   }
 
-<<<<<<< HEAD
+
   // If credentials are valid, return the user details
   const response = new NextResponse(JSON.stringify({
     message: "User authenticated",
@@ -74,23 +72,23 @@ export const POST = async (request) => {
     username: existingUser.username,
     password: existingUser.password // Expose password
   }), {
-=======
+
   // If credentials are valid, set the login-success cookie to true
   const response = new NextResponse("User authenticated", {
->>>>>>> 1cc6beb4f824f2e8e3a5cbd9653aebf64115ba64
+
     status: 200,
   });
 
   response.cookies.set("login-success", "true", {
-<<<<<<< HEAD
+
     httpOnly: false,
     secure: false,
     maxAge: 3600,
-=======
+
     httpOnly: false, // Vulnerability: Allow JavaScript access to this cookie
     secure: false,   // Vulnerability: Allow cookie over insecure HTTP
     maxAge: 3600,    // 1 hour
->>>>>>> 1cc6beb4f824f2e8e3a5cbd9653aebf64115ba64
+
     path: "/",
   });
 
