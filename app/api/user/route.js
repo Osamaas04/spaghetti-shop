@@ -4,13 +4,16 @@ import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/mongo";
 import { User } from "@/model/user-model";// Adjust the import path as needed
 
+
 export const GET = async (request) => {
   try {
     await dbConnect();
 
-    // Assume there's some way to identify the current user (e.g., session token or user ID from cookies)
-    // For demonstration purposes, let's just fetch the first user
-    const user = await User.findOne(); // Replace with proper user identification
+    const userEmail = request.cookies.get("user-email");
+
+    const email = userEmail.value 
+
+    const user = await User.findOne({email}); // Replace with proper user identification
 
     if (!user) {
       return new NextResponse("User not found", { status: 404 });
