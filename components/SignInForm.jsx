@@ -12,8 +12,11 @@ export default function SignInForm() {
   
     const email_usernameValue = email_username.current.value;
     const passwordValue = password.current.value;
+<<<<<<< HEAD
 
     //HTTP request
+=======
+>>>>>>> 1cc6beb4f824f2e8e3a5cbd9653aebf64115ba64
   
     try {
       const response = await fetch('/api/sign-in', {

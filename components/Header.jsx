@@ -7,9 +7,13 @@ import Link from "next/link";
 
 export default function Header() {
   const { cart } = useContext(CartContext);
+<<<<<<< HEAD
   const { isAuthenticated, user } = useContext(AuthContext);
 
   console.log(user)
+=======
+  const { isAuthenticated } = useContext(AuthContext);
+>>>>>>> 1cc6beb4f824f2e8e3a5cbd9653aebf64115ba64
 
   return (
     <header className="bg-slate-800 shadow-lg">
@@ -61,6 +65,7 @@ export default function Header() {
               </Link>
             </li>
             {isAuthenticated ? (
+<<<<<<< HEAD
               <>
                 <li>
                   <Link
@@ -76,6 +81,16 @@ export default function Header() {
                   </span>
                 </li>
               </>
+=======
+              <li>
+                <Link
+                  href="/profile"
+                  className="text-slate-200 hover:text-white transition duration-200"
+                >
+                  Profile
+                </Link>
+              </li>
+>>>>>>> 1cc6beb4f824f2e8e3a5cbd9653aebf64115ba64
             ) : (
               <li>
                 <Link
