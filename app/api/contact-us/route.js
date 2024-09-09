@@ -4,18 +4,19 @@ import { dbConnect } from "@/lib/mongo";
 
 
 export const POST = async (request) => {
-  const { name, email, message } = await request.json();
+  const { name, email, feedback } = await request.json();
 
   await dbConnect();
 
   const newMsg = {
     name,
     email,
-    message,
+    feedback,
   };
 
   try {
     await storeContact(newMsg);
+
   } catch (error) {
     return new NextResponse(error.message, {
       status: 500,
