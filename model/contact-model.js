@@ -9,7 +9,7 @@ const contactSchema = new Schema({
     required: true,
     type: String,
   },
-  message: {
+  feedback: {
     required: true,
     type: String,
   },
