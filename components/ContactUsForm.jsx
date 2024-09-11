@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export default function ContactUsForm() {
   const name = useRef(null);
@@ -8,6 +8,30 @@ export default function ContactUsForm() {
   const feedback = useRef(null);
 
   const [feedbackList, setFeedbackList] = useState([]);
+
+  useEffect(() => {
+    async function fetchFeedbacks() {
+      try {
+        const response = await fetch("/api/feedback", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setFeedbackList(data); // Set the feedbacks fetched from the database
+        } else {
+          console.error("Error fetching feedbacks:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching feedbacks:", error);
+      }
+    }
+
+    fetchFeedbacks();
+  }, []);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -22,25 +46,35 @@ export default function ContactUsForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name: nameValue, email: emailValue, feedback: feedbackValue }),
+        body: JSON.stringify({
+          name: nameValue,
+          email: emailValue,
+          feedback: feedbackValue,
+        }),
       });
 
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
       }
 
-      // Intentionally vulnerable code, adds user input directly to the feedback list
-      setFeedbackList((prevFeedbackList) => [
-        ...prevFeedbackList,
-        { name: nameValue, feedback: feedbackValue },
-      ]);
-
-      // Clear form fields after submission
       name.current.value = "";
       email.current.value = "";
       feedback.current.value = "";
 
       console.log("Message sent successfully!");
+
+      const updatedResponse = await fetch("/api/feedback", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (updatedResponse.ok) {
+        const updatedData = await updatedResponse.json();
+        setFeedbackList(updatedData); 
+      }
+
     } catch (error) {
       alert(`Failed to send message: ${error.message}`);
     }
@@ -96,14 +130,12 @@ export default function ContactUsForm() {
         </button>
       </form>
 
-      {/* Feedback section */}
       <div className="mt-8">
         <h2 className="text-2xl font-semibold text-slate-700 mb-4">User Feedback</h2>
         <ul className="space-y-4">
           {feedbackList.map((item, index) => (
             <li key={index} className="bg-slate-100 p-4 rounded-lg shadow-md">
               <p className="font-bold text-slate-700">{item.name}</p>
-              {/* Vulnerable to XSS */}
               <p className="text-slate-600" dangerouslySetInnerHTML={{ __html: item.feedback }} />
             </li>
           ))}
