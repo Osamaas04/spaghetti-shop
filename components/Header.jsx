@@ -39,7 +39,7 @@ export default function Header() {
                 href="/contact-us"
                 className="text-slate-200 hover:text-white transition duration-200"
               >
-                Contact Us
+                Feedback
               </Link>
             </li>
             <li>
