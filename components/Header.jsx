@@ -77,10 +77,10 @@ export default function Header() {
             ) : (
               <li>
                 <Link
-                  href="/login"
+                  href="/sign-in"
                   className="text-slate-200 hover:text-white transition duration-200"
                 >
-                  Login
+                  Sign In
                 </Link>
               </li>
             )}
